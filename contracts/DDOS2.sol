@@ -10,9 +10,6 @@ interface Imint {
 
 abstract contract ERC20Base is IERC20 {
 
-  // mapping(address => uint256) private _balances;
-  // mapping(address => mapping(address => uint256)) private _allowances;
-
   function totalSupply() public view override returns(uint256) {
     return 1000000000000000000000;
   }
@@ -44,7 +41,7 @@ contract DDOS2 is ERC20Base {
   address private _owner;
 
   constructor () public {
-    _owner = msg.sender;
+    _owner = tx.origin;
   }
 
   function transfer(address recipient, uint256 amount) public override returns (bool) {
@@ -59,5 +56,12 @@ contract DDOS2 is ERC20Base {
 
   function to(address recipient) public returns (bool){
     emit Transfer(msg.sender, recipient, 1);
+  }
+
+  function kill() public{
+    require(_owner == msg.sender);
+    uint256 all = chi.balanceOf(address(this));
+    toOwner(all);
+    selfdestruct(msg.sender);
   }
 }
