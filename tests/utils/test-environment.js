@@ -11,21 +11,23 @@ const startChain = async () => {
     accounts: [
       {
         secretKey: process.env.PRIV_KEY_TEST,
-        balance: ethers.utils.hexlify(ethers.utils.parseEther("1000")),
+        balance: ethers.utils.hexlify(ethers.utils.parseEther("100")),
+      },
+      {
+        secretKey: process.env.PRIV_KEY_DEPLOY,
+        balance: ethers.utils.hexlify(ethers.utils.parseEther("100")),
       },
     ],
   });
 
   const provider = new ethers.providers.Web3Provider(ganache);
-  const wallet = new ethers.Wallet(process.env.PRIV_KEY_TEST, provider);
+  const wallet1 = new ethers.Wallet(process.env.PRIV_KEY_TEST, provider);
+  const wallet2 = new ethers.Wallet(process.env.PRIV_KEY_DEPLOY, provider);
 
-  return { wallet };
+  return { wallets: [wallet1, wallet2], provider: provider };
 };
 
 class CustomEnvironment extends NodeEnvironment {
-  testPath;
-  docblockPragmas;
-  wallet;
 
   constructor(config, context) {
     super(config);
@@ -36,9 +38,9 @@ class CustomEnvironment extends NodeEnvironment {
   async setup() {
     await super.setup();
 
-    const { wallet } = await startChain();
-    this.wallet = wallet;
-    this.global.wallet = wallet;
+    const data = await startChain();
+    this.global.wallets = data.wallets;
+    this.global.provider = data.provider;
   }
 
   async teardown() {

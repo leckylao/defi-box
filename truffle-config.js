@@ -3,6 +3,19 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 // let truffle know what chain to migrate your contracts to
 module.exports = {
+  compilers: {
+    solc: {
+      version: '^0.6.0',
+      // parser: "solcjs",  // Leverages solc-js purely for speedy parsing
+      settings: {
+        optimizer: {
+          enabled: true
+          // runs: <number>   // Optimize for how many times you intend to run the code
+        }
+        // evmVersion: <string> // Default: "petersburg"
+      }
+    }
+  },
   networks: {
     test: {
       skipDryRun: true,

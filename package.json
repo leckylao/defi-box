@@ -17,16 +17,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openzeppelin/contracts": "^2.5.0",
+    "@openzeppelin/contracts": "^3.0",
     "@studydefi/money-legos": "^2.1.0",
     "@truffle/hdwallet-provider": "^1.0.34",
     "dotenv": "^8.2.0",
-    "ethers": "^4.0.46"
+    "ethers": "^5.0"
   },
   "devDependencies": {
     "ganache-cli": "^6.9.1",
     "ganache-core": "^2.10.2",
     "jest": "^25.4.0",
-    "truffle": "^5.1.22"
+    "truffle": "^5.1.30"
   }
 }

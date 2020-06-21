@@ -13,18 +13,14 @@ const server = ganache.server({
   accounts: [
     {
       secretKey: process.env.PRIV_KEY_TEST,
-      balance: ethers.utils.hexlify(ethers.utils.parseEther("1000")),
+      balance: ethers.utils.hexlify(ethers.utils.parseEther("100")),
     },
     {
       secretKey: process.env.PRIV_KEY_DEPLOY,
-      balance: ethers.utils.hexlify(ethers.utils.parseEther("1000")),
+      balance: ethers.utils.hexlify(ethers.utils.parseEther("100")),
     },
   ],
 });
 
 server.listen(PORT, (err, chain) => {
-  console.log(`Forked off of node: ${process.env.MAINNET_NODE_URL}\n`);
-  console.log(`Test private key:\n`);
-  console.log(`\t${process.env.PRIV_KEY_TEST}`);
-  console.log(`\nTest chain started on port ${PORT}, listening...`);
 });
